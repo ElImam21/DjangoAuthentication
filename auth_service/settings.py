@@ -39,17 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     'accounts.apps.AccountsConfig',
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
-    'accounts.middleware.StartupCleanupMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # 🔥 paling atas
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "django.middleware.common.CommonMiddleware",
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'accounts.middleware.StartupCleanupMiddleware',  # 🔽 taruh paling bawah
 ]
 
 ROOT_URLCONF = 'auth_service.urls'
@@ -133,3 +138,12 @@ ACCESS_TOKEN_SECRET = "randomly_generated_access_secret_here_0011001"
 
 # Secret untuk JWT Refresh Token
 REFRESH_TOKEN_SECRET = "randomly_generated_refresh_secret_here_0011001"
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+]
+
+CORS_ALLOW_CREDENTIALS = True

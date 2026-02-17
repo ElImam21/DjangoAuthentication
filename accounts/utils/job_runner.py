@@ -10,10 +10,10 @@ def run_cleanup_if_needed(trigger: str):
     lock, _ = JobLock.objects.get_or_create(name=lock_name)
 
     # sudah pernah jalan untuk trigger ini
-    if lock.last_run_at:
+    if lock.last_triggered_at:
         return
 
     call_command("cleanup_refresh_tokens")
 
-    lock.last_run_at = now
-    lock.save(update_fields=["last_run_at"])
+    lock.last_triggered_at = now
+    lock.save(update_fields=["last_triggered_at"])
